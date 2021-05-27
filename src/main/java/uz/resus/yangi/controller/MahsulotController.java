@@ -1,12 +1,12 @@
 package uz.resus.yangi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import uz.resus.yangi.entity.Mahsulot;
 import uz.resus.yangi.service.MahsulotService;
 
@@ -20,9 +20,14 @@ public class MahsulotController {
     MahsulotService mahsulotService;
 
     @GetMapping()
-    public ResponseEntity<List<Mahsulot>> getAll(){
+    public ResponseEntity<Page<Mahsulot>> getAll(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                 @RequestParam(value = "size", defaultValue = "10") int size){
 //        return ResponseEntity.ok(this.mahsulotService.getAll());
-        return new ResponseEntity<>(this.mahsulotService.getAll(), HttpStatus.OK);
+
+        Pageable p = PageRequest.of(page, size);
+
+
+        return new ResponseEntity<>(this.mahsulotService.getAll(p), HttpStatus.OK);
     }
 
 

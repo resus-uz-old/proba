@@ -1,6 +1,8 @@
 package uz.resus.yangi.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import uz.resus.yangi.entity.Mahsulot;
 import uz.resus.yangi.repository.MahsulotRepository;
@@ -18,6 +20,11 @@ public class MahsulotServiceImpl implements MahsulotService {
     @Override
     public List<Mahsulot> getAll() {
         return mahsulotRepository.findAll();
+    }
+
+    @Override
+    public Page<Mahsulot> getAll(Pageable pageable) {
+        return mahsulotRepository.findAll(pageable);
     }
 
     @Override
